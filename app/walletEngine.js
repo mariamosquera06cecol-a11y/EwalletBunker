@@ -50,3 +50,46 @@ export const calculateCashbackPoints = (
 
   return Number(points.toFixed(2));
 };
+export const generateSavingsGoals = () => {
+  return [
+    {
+      id: faker.string.uuid(),
+      name: "PC Gamer",
+      targetAmount: 4000000,
+      savedAmount: 1200000
+    },
+
+    {
+      id: faker.string.uuid(),
+      name: "Moto",
+      targetAmount: 8000000,
+      savedAmount: 2500000
+    },
+
+    {
+      id: faker.string.uuid(),
+      name: "Viaje",
+      targetAmount: 3000000,
+      savedAmount: 900000
+    }
+  ];
+};
+
+export const transferToSavingsGoal = (
+  walletBalance,
+  transferAmount
+) => {
+
+  if (transferAmount > walletBalance) {
+    return {
+      success: false,
+      message: "Saldo insuficiente"
+    };
+  }
+
+  return {
+    success: true,
+    remainingBalance:
+      walletBalance - transferAmount
+  };
+};
