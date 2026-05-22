@@ -33,3 +33,20 @@ export const calculateNetBalance = (transactions) => {
     return acc - tx.amount;
   }, 0);
 };
+export const calculateCashbackPoints = (
+  transactions
+) => {
+  let points = 0;
+
+  transactions.forEach((tx) => {
+    const qualifies =
+      tx.status === "Completado" &&
+      tx.amount > 50000;
+
+    if (qualifies) {
+      points += tx.amount * 0.01;
+    }
+  });
+
+  return Number(points.toFixed(2));
+};

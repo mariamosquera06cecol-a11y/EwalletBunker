@@ -10,7 +10,8 @@ import {
 
 import {
   generateTransactionHistory,
-  calculateNetBalance
+  calculateNetBalance,
+  calculateCashbackPoints
 } from "./walletEngine";
 
 const DATA = generateTransactionHistory(200);
@@ -26,6 +27,10 @@ export default function WalletScreen() {
 
   const balance = useMemo(() => {
     return calculateNetBalance(DATA);
+  }, []);
+
+  const cashbackPoints = useMemo(() => {
+    return calculateCashbackPoints(DATA);
   }, []);
 
   const renderItem = ({ item }) => (
@@ -73,6 +78,17 @@ export default function WalletScreen() {
         <Text style={styles.balanceLabel}>
           Saldo Neto Total
         </Text>
+        <View style={styles.pointsCard}>
+  <Text style={styles.pointsLabel}>
+    Puntos ADSO
+  </Text>
+
+  <Text style={styles.points}>
+    {cashbackPoints.toLocaleString(
+      "es-CO"
+    )}
+  </Text>
+</View>
 
         <Text style={styles.balance}>
           $
@@ -127,6 +143,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 20
   },
+  pointsCard: {
+  backgroundColor: "#14532d",
+  padding: 20,
+  borderRadius: 20,
+  marginBottom: 20
+},
+
+pointsLabel: {
+  color: "#bbf7d0",
+  marginBottom: 8,
+  fontSize: 15
+},
+
+points: {
+  color: "#fff",
+  fontSize: 28,
+  fontWeight: "bold"
+},
 
   title: {
     fontSize: 30,
