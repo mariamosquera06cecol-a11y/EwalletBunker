@@ -1,7 +1,8 @@
 import {
   generateTransactionHistory,
   calculateNetBalance,
-  calculateCashbackPoints
+  calculateCashbackPoints,
+  transferToSavingsGoal
 } from "./walletEngine";
 
 describe("Wallet Engine", () => {
@@ -174,3 +175,70 @@ describe("Wallet Engine", () => {
   );
 
 });
+
+test(
+  "Debe descontar saldo correctamente",
+  () => {
+
+    const result =
+      transferToSavingsGoal(
+        500000,
+        100000
+      );
+
+    expect(
+      result.remainingBalance
+    ).toBe(400000);
+
+  }
+);
+
+test(
+  "No debe permitir transferir más saldo del disponible",
+  () => {
+
+    const result =
+      transferToSavingsGoal(
+        50000,
+        100000
+      );
+
+    expect(
+      result.success
+    ).toBe(false);
+
+  }
+);
+test(
+  "Debe descontar saldo correctamente",
+  () => {
+
+    const result =
+      transferToSavingsGoal(
+        500000,
+        100000
+      );
+
+    expect(
+      result.remainingBalance
+    ).toBe(400000);
+
+  }
+);
+
+test(
+  "No debe permitir transferir más saldo del disponible",
+  () => {
+
+    const result =
+      transferToSavingsGoal(
+        50000,
+        100000
+      );
+
+    expect(
+      result.success
+    ).toBe(false);
+
+  }
+);
